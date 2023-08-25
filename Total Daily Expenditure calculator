@@ -1,1 +1,73 @@
+## This script assesses the total daily caloric expenditure based on the data entered in the weights dictionary, 
+## and the assumption that one gram of mixed human tissue is equal to ~7kcal
 
+## Simply add the weights from daily check-ins into the weights dictionary
+## Example of how to add check-in weights
+w = { "July":{"21":78.1,
+          "22":78.4,
+          "23":78.0,
+          "24":78,
+          "25":78.4,
+          "26":78.4,
+          "30":77.9,
+          },
+    "August": {"1":78.4,
+              "2":78.7,
+              "3":79,
+              "4":78.9,
+              "5":78,
+              "7":78.9,
+              "9":78.4,
+              "10":78.4,
+              "11":79.2,
+              "14":80,
+              "15":79,
+              "17":79,
+              "18":79,
+              "19":79.2,
+              "20":78.9,
+    }
+}
+##
+w= {
+"month1": {
+
+          }
+
+"month2" :
+          {
+
+          }
+}
+
+# Initialize variables
+previous_weight = None
+total_weight_increase = 0
+total_days = 0
+
+for month, days in w.items():
+    for day, weight in sorted(days.items(), key=lambda x: int(x[0])):
+        # Skip the first day since there's no previous day to compare
+        if previous_weight is None:
+            previous_weight = weight
+            continue
+        
+        # Calculate the weight increase from the previous day
+        weight_increase = weight - previous_weight
+        total_weight_increase += weight_increase
+        total_days += 1
+        
+        # Update the previous weight for the next iteration
+        previous_weight = weight
+
+# Calculate the average weekly weight increase
+average_weekly_increase = (total_weight_increase / total_days) * 7
+print(f"Average weekly weight increase: {average_weekly_increase:.2f} kg/week")
+# %%
+# 1g of mixed human tissue is 7kcal
+#print(average_weekly_increase)
+grams per week = average_weekly_increase*1000
+
+kcalperweek = gramsperweek*7
+
+perdayincrease = kcalperweek/7
